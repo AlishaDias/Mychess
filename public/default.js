@@ -1,6 +1,5 @@
 var board;
-var game;
-
+var game= new Chess();
 window.onload = function(){
   initGame();
 };
@@ -46,7 +45,7 @@ var initGame = function(){
     };
     board = new ChessBoard('gameBoard',cfg);
     game = new Chess();
-
+    
 };
 
 var handleMove =function(source,target){
