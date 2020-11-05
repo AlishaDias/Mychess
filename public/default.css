@@ -1,0 +1,51 @@
+
+
+.btn1{
+    background-color: chocolate;
+}
+#container{
+    width: 1000px;
+    margin-top: 20px;
+    margin: auto;
+    padding-top: 30px;
+}
+#one{
+    display: inline;
+    width: 500px;
+    float: left;
+    text-align: center;  
+}
+#two{
+    padding-top: 80px;
+    display: inline;
+    width: 500px ;
+    float: left;
+}
+#wrapper1{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 15% 0%;
+    grid-gap: 80px;
+}
+#wrapper2{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 15% 0%;
+    grid-gap: 80px;
+}
+
+#gameBoard{
+   
+    width: 400px;
+}
+@media screen and (max-width:968px){
+    #container{
+        width: 100%;
+    }
+    #one{
+        width: 100%;
+    }
+    #two{
+        width: 100%;
+    }
+}
