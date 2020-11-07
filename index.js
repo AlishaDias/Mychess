@@ -26,3 +26,4 @@ app.get(['/','/:id','/default.html'],function(req,res){
 http.listen(port,function(){
     console.log('listening on *: ' + port);
 });
+//http://127.0.0.1:3000/?user=Player1&opponent=Player2&orientation=white&gameid=[unique]&Time=10&opponentTime=10

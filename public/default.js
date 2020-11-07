@@ -1,20 +1,20 @@
 var board;
-var game= new Chess();
+var game;
+
 window.onload = function(){
   initGame();
 };
 //setup socket client
 var socket = io();
 var url_string=(window.location.href).toLowerCase();
-  var url = new URL(url_string);
+var url = new URL(url_string);
   
-
-document.addEventListener('DOMContentLoaded',() =>{
-
 var countdownEl=document.getElementById("countdown")
-var startBtn = document.getElementById("start-button")
+var countdownEl2=document.getElementById("countdown2")
 var startMinutes=url.searchParams.get("time");
-let time= startMinutes * 60
+var startMinutes2=url.searchParams.get("opponenttime");
+let time= startMinutes * 60;
+let opponenttime=startMinutes2 * 60;
 
 function countdown(){
   setInterval(function(){
@@ -28,10 +28,18 @@ function countdown(){
     time--;
   },1000)
 }
-
-
-startBtn.addEventListener('click',countdown)
-})
+function countdown2(){
+  setInterval(function(){
+    if (countdownEl2<=0){
+      clearInterval(countdownEl2=0)
+    }
+    var mins= Math.floor(time/60);
+    let sec=opponenttime % 60;
+    sec =sec < 10 ? '0'+sec:sec;
+    countdownEl2.innerHTML = mins + ":" + sec;
+    opponenttime--;
+  },1000)
+}
 
 var initGame = function(){
   
@@ -42,16 +50,31 @@ var initGame = function(){
         orientation: ori,
         position: 'start',
         onDrop: handleMove,
+        
     };
     board = new ChessBoard('gameBoard',cfg);
     game = new Chess();
+    updateStatus();
+    
     
 };
 
 var handleMove =function(source,target){
     var move=game.move({from:source, to:target});
     if (move === null) return 'snapback';
-    else socket.emit("move",move);
+    else {
+      socket.emit("move",move);
+      var moveColor = 'White'
+      if (game.turn() === 'b') {
+      moveColor = 'Black'
+  
+      if (moveColor='White'){
+        countdown();
+      }
+      else {
+        countdown2();
+      } 
+    }}
 };
 
 //called when the server calls socket.broadcast('move')

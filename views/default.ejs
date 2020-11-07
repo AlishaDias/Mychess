@@ -9,24 +9,20 @@
     <body> 
       <div id="container" >
         <div id="one" >  
-          <div><button type="button" class="btn1" id="start-button" >Start</button> <br></div>
           <div id="wrapper1">
             <div id="timer1" class="timer"><h3> <p id="countdown"><%= Player.Time %>:00</p></h3></div>         
             <div id="player1" class="player"><h3><%= Player.user %> </h3></div>
           </div>
           <div id="gameBoard"></div>
           <div id="wrapper2">
-            <div id="timer2" class="timer"><h3> <p id="countdown"><%= Player.Time %>:00</p></h3></div> 
+            <div id="timer2" class="timer"><h3> <p id="countdown2"><%= Player.opponentTime %>:00</p></h3></div> 
             <div id="player2" class="player"><h3><%= Player.opponent %> </h3></div>
           </div>
         </div>
         <div id="two" >
           <iframe id="frame" src="https://meet.jit.si/PureEndsAppealTonight" allow="camera;microphone" height="320" width="500"></iframe><br>
           <label>Status:</label>
-          <div id="status"></div>
-        
-          <label>PGN:</label> 
-          <div id="pgn"></div>      
+          <div id="status"></div>      
          </div>
       </div>
     
