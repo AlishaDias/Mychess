@@ -22,21 +22,48 @@
     float: left;
 }
 #wrapper1{
+    height: 48px;
+    margin-left: 50px;
+    border: 2px black solid;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 396px;
+    background-color:#006a4e;
     text-align: center;
     display: grid;
     grid-template-columns: 15% 0%;
     grid-gap: 80px;
 }
 #wrapper2{
-    margin-top: 10px;
+    height: 48px;
+    margin-left: 50px;
+    border: 2px black solid;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 396px;
+    background-color: #006a4e;
     display: grid;
     grid-template-columns: 15% 0%;
     grid-gap: 80px;
 }
-
+#frame{
+    border: 2px black solid;
+}
 #gameBoard{
-   
+    margin-left: 50px;
     width: 400px;
+}
+.smalltext{
+    color: black;
+}
+.player{
+    height: 46px;
+    padding-top: 7px;
+    margin-left: 30px;
+}
+.timer{
+    height: 46px;
+    padding-top: 7px;
+    width: 100px;
+    background-color: black;
 }
 @media screen and (max-width:968px){
     #container{
