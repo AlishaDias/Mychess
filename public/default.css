@@ -3,23 +3,16 @@
 .btn1{
     background-color: chocolate;
 }
-#container{
-    width: 1000px;
-    margin-top: 20px;
-    margin: auto;
-    padding-top: 30px;
+.leftside,.rightside{
+    width: 100%;
 }
-#one{
-    display: inline;
-    width: 500px;
-    float: left;
-    text-align: center;  
+.leftside{
+   
+      
 }
-#two{
-    padding-top: 80px;
-    display: inline;
-    width: 500px ;
-    float: left;
+.rightside{
+    
+   
 }
 #wrapper1{
     height: 48px;
@@ -66,14 +59,12 @@
     background-color: black;
     color: beige;
 }
-@media screen and (max-width:968px){
-    #container{
-        width: 100%;
+#clockdiv2{
+    padding-left: 8px;
+}
+@media screen and (min-width:768px){
+    .leftside,.rightside{
+        height: 100vh;
     }
-    #one{
-        width: 100%;
-    }
-    #two{
-        width: 100%;
-    }
+    
 }

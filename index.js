@@ -17,6 +17,9 @@ io.on('connection',function(socket) {
     socket.on('time',function(msg){
         socket.broadcast.emit('time',msg);
     });
+    socket.on('time2',function(msg){
+        socket.broadcast.emit('time2',msg);
+    });
 });
 
 app.set('view engine',"ejs");
