@@ -12,10 +12,12 @@ var output2=document.getElementById("clockdiv2");
 let time= startMinutes * 60;
 let opponenttime=startMinutes2 * 60;
 
-var start=document.getElementById("start");
-var test=document.getElementById("test");
+var coundown1ON=false;
+var countdown2ON=false;
 
-  function countdown(){         //for timer 1
+//countdown for timer1
+function countdown1(){  
+  if (coundown1ON==false){
     clearInterval(myinterval);
     myinterval=setInterval(function(){
       if (countdownEl<=0){
@@ -26,22 +28,21 @@ var test=document.getElementById("test");
       minutes =minutes < 10 ? '0'+minutes:minutes;
       seconds =seconds < 10 ? '0'+seconds:seconds;
       clockdiv.innerHTML = minutes + ":" + seconds;
-      time--;
-      socket.emit("time",{
-          minutes:minutes,
-          seconds:seconds
-      });  
+      time--; 
+      if(time<-1){
+        alert("Time Over");
+      }
     },1000);
-    if(time<-1){
-      alert("Time Over");
-  }
-  }
-  function pause(){
-    clearInterval(myinterval);
-      myinterval=-1; 
-  }
+    coundown1ON=true;
+  }         
+}
   
-function resume(){
+function pauseCountdown1(){
+  clearInterval(myinterval);
+  myinterval=-1; 
+}
+  
+function resumeCountdown1(){
     if(myinterval==-1){
         myinterval=setInterval(function(){
           if (countdownEl<=0){
@@ -56,40 +57,10 @@ function resume(){
         },1000);
     }
 }
-
-    start.addEventListener('click',function(event){  
-        clearInterval(myinterval);
-      myinterval=-1;
-      socket.emit("time",{
-        minutes:minutes,
-        seconds:seconds
-      }); 
-    })
-    test.addEventListener('click',function(event){
-        if(myinterval==-1){
-            myinterval=setInterval(function(){
-              if (countdownEl<=0){
-                clearInterval(countdownEl=0)
-              }
-              var minutes= Math.floor(time/60);
-              let seconds=time % 60;
-              minutes =minutes < 10 ? '0'+minutes:minutes;
-              seconds =seconds < 10 ? '0'+seconds:seconds;
-              clockdiv.innerHTML = minutes + ":" + seconds;
-              time--;
-              if(time<-1){
-                alert("Time Over");
-            }
-              socket.emit("time",{
-                minutes:minutes,
-                seconds:seconds
-              });
-            },1000);
-        }
-    })
-    
-    
-function countdown2(){       
+ 
+//countdown for timer2
+function countdown2(){   
+  if (coundown2ON==false){    
     clearInterval(myinterval2);       //for timer 2
     myinterval2=setInterval(function(){
     if (countdownEl2<=0){
@@ -104,20 +75,17 @@ function countdown2(){
     if(opponenttime<-1){
           alert("Time Over");
       }
-    socket.emit("time2",{
-      mins:mins,
-      sec:sec
-    });
-  },1000)
- 
+    },1000);
+    coundown2ON=true;
+  }
 }
     
-function pause2(){
+function pauseCountdown2(){
     clearInterval(myinterval2);
     myinterval2=-1;
 }
 
-function resume2(){
+function resumeCountdown2(){
     if(myinterval2==-1){
         myinterval2=setInterval(function(){
           if (countdownEl2<=0){
@@ -136,11 +104,3 @@ function resume2(){
       }
 }
 
-
-socket.on('time',function(msg){
-    output2.innerHTML=msg.minutes+ ":" +msg.seconds;
-  });
-  socket.on('time2',function(msg){
-    output.innerHTML=msg.mins+ ":" +msg.sec;
-  });
-  

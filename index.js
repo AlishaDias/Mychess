@@ -9,16 +9,9 @@ var io = require('socket.io')(http);
 
 io.on('connection',function(socket) {
     console.log('new connection');
-    
     //this is called whenthe socket calls socket.emit('move')
     socket.on('move',function(msg){
         socket.broadcast.emit("move",msg);
-    });
-    socket.on('time',function(msg){
-        socket.broadcast.emit('time',msg);
-    });
-    socket.on('time2',function(msg){
-        socket.broadcast.emit('time2',msg);
     });
 });
 
@@ -31,4 +24,5 @@ app.get(['/','/:id','/default.html'],function(req,res){
 http.listen(port,function(){
     console.log('listening on *: ' + port);
 });
-//http://127.0.0.1:3000/?user=Player1&opponent=Player2&orientation=white&gameid=[unique]&Time=10&opponentTime=10
+//http://127.0.0.1:3000/?user=Player1&opponent=Player2&orientation=white&boardgame=[unique]&Time=10&opponentTime=10
+//http://127.0.0.1:3000/?user=Player2&opponent=Player1&orientation=black&boardgame=[unique]&Time=10&opponentTime=10
