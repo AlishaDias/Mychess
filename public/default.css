@@ -1,35 +1,40 @@
-body{
-    font-family: 'Montserrat', sans-serif;
+body {
+  font-family: "Montserrat", sans-serif;
 }
-.leftside,.rightside{
-    width: 100%;
-}
-
-#wrapper1,#wrapper2{
-    border: 2px black solid;
-    background-color:beige;
-    text-align: center;
-    display: grid;
-    grid-template-columns: 15% 0%;
-    grid-gap: 80px;
-    color: #006a4e;
-}
-.player{
-   
-    padding-top: 17px;
-    margin-left: 150px;
-}
-.timer{
-   
-    padding-top: 17px;
-   
-    background-color: black;
-    color: beige;
+.leftside,
+.rightside {
+  width: 100%;
 }
 
-@media screen and (min-width:768px){
-    .leftside,.rightside{
-        height: 100vh;
-    }
-    
+.gamestatus{
+    color: black;
+}
+
+#wrapper1,
+#wrapper2 {
+  border: 2px black solid;
+  background-color: beige;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 15% 0%;
+  grid-gap: 20px;
+  color: #006a4e;
+}
+
+.player {
+  text-align: center;
+  /* padding-top: 17px; */
+  /* margin-left: 150px; */
+}
+.timer {
+  /* padding-top: 17px; */
+  background-color: black;
+  color: beige;
+}
+
+@media screen and (min-width: 768px) {
+  .leftside,
+  .rightside {
+    height: 100vh;
+  }
 }
