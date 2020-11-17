@@ -29,10 +29,18 @@ function countdown1() {
       seconds = seconds < 10 ? "0" + seconds : seconds;
       clockdiv.innerHTML = minutes + ":" + seconds;
       time--;
-      if (time < -1) {
-        alert("Time Over");
-        clearInterval(myinterval);
-        clockdiv.innerHTML = "00:00";
+      // if (time < -1) {
+      //   alert("Time Over");
+      //   clearInterval(myinterval);
+      //   clockdiv.innerHTML = "00:00";
+      // }
+      if ((time==-1 && opponenttime!=-1 && ori=='white') || (time==-1 && opponenttime!=-1 && ori=='black')){
+        pauseTimer();
+        alert("You win! Game Over")
+      }
+      else if((opponenttime==-1 && time!=-1 && ori=='white')||(opponenttime==-1 && time!=-1 && ori=='black')){
+        pauseTimer();
+        alert("Oponnent Wins! Game Over");
       }
     }, 1000);
     countdown1ON = true;
@@ -74,10 +82,18 @@ function countdown2() {
       sec = sec < 10 ? "0" + sec : sec;
       clockdiv2.innerHTML = mins + ":" + sec;
       opponenttime--;
-      if (opponenttime < -1) {
-        alert("Time Over");
-        clearInterval(myinterval2);
-        clockdiv2.innerHTML = "00:00";
+      // if (opponenttime < -1) {
+      //   alert("Time Over");
+      //   clearInterval(myinterval2);
+      //   clockdiv2.innerHTML = "00:00";
+      // }
+      if ((time==-1 && opponenttime!=-1 && ori=='white') || (time==-1 && opponenttime!=-1 && ori=='black')){
+        pauseTimer();
+        alert("You win! Game Over")
+      }
+      else if((opponenttime==-1 && time!=-1 && ori=='white')||(opponenttime==-1 && time!=-1 && ori=='black')){
+        pauseTimer();
+        alert("Oponnent Wins! Game Over");
       }
     }, 1000);
     countdown2ON = true;

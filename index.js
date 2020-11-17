@@ -16,24 +16,35 @@ var io = require("socket.io")(http);
 // });
 
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ gameroom }) => {
-    // const user = userJoin(socket.id, username, gameroom);
-    socket.join(gameroom);
-    console.log(gameroom + ": Connected");
-  });
+    try{
+        socket.on("joinRoom", ({ gameroom }) => {
+            // const user = userJoin(socket.id, username, gameroom);
+            socket.join(gameroom);
+            console.log(gameroom + ": Connected");
+          });
+    }
+    catch(error){
+        console.log(error.message+"at"+gameroom);
+    }
+  
   // Listen for moveMessage
+try{
   socket.on("move", ({ gameroom, msg }) => {
     //   io.to(user.room).emit("move", msg);
-    console.log("Message Received for" + gameroom + " : Message = " + msg);
+    console.log("Message Received for " + gameroom + " : Message = " + msg);
     socket.broadcast.to(gameroom).emit("move", { msg: msg });
     // socket.emit("move", msg);
     // io.in(gameroom).emit("move", msg);
   });
+}
+catch(error){
+    console.log(error.message+" at "+gameroom);
+}
 });
 
 app.set("view engine", "ejs");
 
-app.get(["/", "/:id", "/default.html"], function (req, res) {
+app.get(["/", "/:id"], function (req, res) {
   res.render("default.ejs", { Player: req.query });
 });
 

@@ -38,3 +38,9 @@ body {
     height: 100vh;
   }
 }
+
+/* @media (max-width: 576px){
+  .row{
+    width: 684px;
+  }
+} */

@@ -1,5 +1,19 @@
 var board;
 var game;
+var md = new MobileDetect(window.navigator.userAgent);
+
+
+console.log( md.mobile() );          // 'Sony'
+console.log( md.phone() );           // 'Sony'
+console.log( md.tablet() );          // null
+console.log( md.userAgent() );       // 'Safari'
+console.log( md.os() );              // 'AndroidOS'
+console.log( md.is('iPhone') );      // false
+console.log( md.is('bot') );         // false
+console.log( md.version('Webkit') );         // 534.3
+console.log( md.versionStr('Build') );       // '4.1.A.0.562'
+console.log( md.match('playstation|xbox') ); // false
+
 
 //setup socket client
 var socket = io();
@@ -53,40 +67,50 @@ function updateStatus() {
   var status = "";
 
   var moveColor = "White";
+
   if (game.turn() === "b") {
     moveColor = "Black";
   }
-
   // check checkmate?
-  if (game.inCheckmate()) {
+  if (game.in_checkmate()) {
     // alert("Game Over. " + moveColor + " is checkmate.");
     status = "Game Over. " + moveColor + " is checkmate.";
     pauseTimer();
   }
 
   // check draw?
-  else if (game.inDraw()) {
+  else if (game.in_draw()) {
     status = "Game over, drawn position";
     pauseTimer();
   }
 
+  else if(game.game_over()){
+    status ="Game Over!";
+    pauseTimer();
+  }
+
+  // else if(time==-1 || opponenttime==-1){
+  //   status ="Game Over!";
+  //   pauseTimer();
+  // }
+  
   // game still on
   else {
     status = moveColor + "'s Turn";
 
     // check?
-    if (game.inCheck()) {
+    if (game.in_check()) {
       status += ", " + moveColor + " is in check position";
     }
   }
-
+  
   $status.html(status);
 }
 
 //OnDragStart function
 var controlTurnBasedMove = function (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
-  if (game.gameOver()) return false;
+  if (game.game_over()) return false;
 
   // only pick up pieces for the side to move
   if (
@@ -117,8 +141,14 @@ var handleMove = function (source, target) {
     return "snapback";
   } else {
     socketdata = { gameroom, move };
-    socket.emit("move", { gameroom: gameroom, msg: move });
-    console.log("Message Emited to: " + gameroom + " : Message: " + move);
+    try{
+      socket.emit("move", { gameroom: gameroom, msg: move });
+      console.log("Message Emited to: " + gameroom + " : Message: " + move);
+    }
+    catch(error){
+      console.log(error.message +"at"+ gameroom);
+    }
+    
     // socket.to(gameroom).emit("move", move);
     // updateStatus();
     // changeTimer();
@@ -150,13 +180,19 @@ function pauseTimer() {
 }
 
 //called when the server calls socket.broadcast('move')
-socket.on("move", ({ msg }) => {
-  console.log("Message received: " + msg);
-  game.move(msg);
-  board.position(game.fen()); //fen is the board layout
-  changeTimer();
-  updateStatus();
-});
+try{
+  socket.on("move", ({ msg }) => {
+    console.log("Message received: " + msg);
+    game.move(msg);
+    board.position(game.fen()); //fen is the board layout
+    changeTimer();
+    updateStatus();
+  });
+}
+catch(error){
+  console.log(error.message);
+}
+
 
 //livecamera iframe function
 function prepareJitsiFrame() {
